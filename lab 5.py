@@ -1,29 +1,27 @@
-import numpy as np
+import math
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Чтение данных из текстового файла
-with open('file.txt', 'r') as file:
-    data = file.readlines()
+def f(x):
+    return math.exp(-x*x) - x*x + 2*x
 
-# Разделение координат на x и y
-x = []
+def f_pr(x):
+    return (-x*x - 1)*math.exp(-x*x) - 2*x + 2
+h = float(input())
+h = round(1/h)
+x = np.linspace(1,2,h)
 y = []
-for line in data:
-    line = line.strip().split('\t')
-    x.append(float(line[0]))
-    y.append(float(line[1]))
-
-x0 = 0
-y0 = 4.322418
-
-# Построение графика функции
-plt.plot(x, y, label='График функции')
-
-plt.axhline(y0,  label='Касательная', color='r', linestyle='--')
-
-plt.title('График функции с касательной, параллельной оси Ox')
+for i in x:
+    y.append(f(i))
+x1 = [1.0, 2.0]
+y1 =[]
+for i in x1:
+    y1.append(f(1.4) + f_pr(1.4) * (i - 1.4))
+plt.title('График')
 plt.xlabel('x')
 plt.ylabel('y')
-plt.legend()
-plt.grid(True)
+plt.grid()
+plt.plot(x, y)
+plt.plot(x1, y1)
+plt.plot(1.4, 0.978, "ro")
 plt.show()
